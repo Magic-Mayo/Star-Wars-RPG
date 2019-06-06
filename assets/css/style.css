@@ -3,7 +3,9 @@ body {
     background-image: url(../images/background1.jpg);
     background-size: cover;
     overflow: scroll;
+    color: #cccccc;
 }
+
 .container {
     margin: 0;
     padding: 0;
@@ -17,10 +19,13 @@ body {
 .title {
     right: -20vw;
     position: relative;
-    color: #cccccc;
 }
+
 .wars {
     right: 0;
-    /* position: unset; */
     text-align: center;
+}
+
+.user {
+    
 }
