@@ -1,5 +1,26 @@
-html {
+body {
     /* Background image from rich35211 https://www.deviantart.com/rich35211/art/Star-Wars-Coruscant-2015-Matte-373876097 */
     background-image: url(../images/background1.jpg);
     background-size: cover;
+    overflow: scroll;
+}
+.container {
+    margin: 0;
+    padding: 0;
+}
+
+.chars {
+    left: 2vw;
+    position: relative;
+}
+
+.title {
+    right: -20vw;
+    position: relative;
+    color: #cccccc;
+}
+.wars {
+    right: 0;
+    /* position: unset; */
+    text-align: center;
 }
