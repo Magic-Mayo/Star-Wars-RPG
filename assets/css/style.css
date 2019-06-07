@@ -14,11 +14,15 @@ body {
 .chars {
     left: 2vw;
     position: relative;
+    height: 150px;
+    width: auto;
 }
 
 .title {
     right: -20vw;
     position: relative;
+    overflow: visible;
+    width: 40vw;
 }
 
 .wars {
@@ -27,5 +31,86 @@ body {
 }
 
 .user {
-    
+
+}
+
+.chewy {
+    padding-right: 0;
+    padding-left: 0;
+    color: #aa5522;
+}
+
+.Yoda {
+    padding-right: 0;
+    padding-left: 0;
+    color: #699a41;
+}
+
+#Yoda {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#Yoda-health {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.Palpatine {
+    padding-right: 0;
+    padding-left: 0;
+    color: ;
+}
+
+#Palpatine {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#Palpatine-health {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.Jinn {
+    padding-right: 0;
+    padding-left: 0;
+    color: ;
+}
+
+#Jinn {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#Jinn-health {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#chewy {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#chewy-health {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }

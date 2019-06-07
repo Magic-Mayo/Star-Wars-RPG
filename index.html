@@ -6,37 +6,45 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Star Wars RPG</title>
 </head>
 <body>
     <main class="container">
-        <div class="d-inline-flex flex-row chars mt-4">
-            <div>
-                <img src="assets/images/palpatine.jpg" class="bg-light img-fluid border border-danger py-4 character" id="Palpatine" alt="Palpatine">
+        <div class="d-inline-flex flex-row chars mt-4" id="Palpatine">
+
+            <div class="bg-light border border-danger py-4 character  Palpatine">
+                <span id="Palpatine">Palpatine</span>
+                <img src="assets/images/palpatine.jpg" alt="Palpatine">
+                <span id="Palpatine-health">Health: </span>
             </div>
-            <div>
-                <img src="assets/images/quigonjinn.jpg" class="bg-light img-fluid border border-success py-4 character" id="Qui-Gon Jinn" alt="Qui-Gon Jinn">
+
+            <div class="bg-light border border-success py-4 character col Jinn" id="Qui-Gon Jinn">
+                <span id="Jinn">Jinn</span>
+                <img src="assets/images/quigonjinn.jpg" alt="Qui-Gon Jinn">
+                <span id="Jinn-health">Health: </span>
             </div>
-            <div>
-                <img src="assets/images/yoda.jpg" class="bg-light img-fluid border border-warning py-4 character" id="Yoda" alt="Yoda">
+
+            <div class="bg-light border border-warning py-4 col Yoda">
+                <span id="Yoda">Yoda</span>
+                <img src="assets/images/yoda.jpg" alt="Yoda">
+                <span id="Yoda-health">Health: </span>
             </div>
-            <div>
-                <img src="assets/images/chewy.jpg" class="bg-light img-fluid border border-primary py-4 character" id="Chewy" alt="Chewy">
+
+            <div class="bg-light border border-primary py-4 chewy col">
+                    <span id="chewy">Chewy</span>
+                    <img src="assets/images/chewy.jpg" alt="Chewy">
+                    <span id="chewy-health">Health: </span>
             </div>
-            <div class="title mt-3">
-                <div class="col">
-                <h1 class="title wars" class="font-italic">STAR WARS RPG!</h1>
+
+            <div class="title mt-3 col float-right">
+                <h1 class="title wars font-italic">STAR WARS RPG!</h1>
                 <h3 class="title wars">Choose a character to start</h3>
-                </div>
             </div>
         </div>
 
-        <div class="row mt-2 user">
-            <div class="col">
-                <h4>Your Character</h4>
-            </div>
+        <div class="d-inline-flex flex-row mt-2 user">
+            <h4>Your Character</h4>
         </div>
     </main>
 </body>
