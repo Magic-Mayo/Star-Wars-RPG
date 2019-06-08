@@ -30,8 +30,17 @@ body {
     text-align: center;
 }
 
-.user {
-    
+.enemy {
+    /* margin-top: 30vh; */
+}
+
+.comp-char {
+    margin-top: 13vh;
+}
+.row {
+    margin: 0;
+    margin-left: 15px;
+    padding-left: 15px;
 }
 
 .chewy {
