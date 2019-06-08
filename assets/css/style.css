@@ -15,7 +15,7 @@ body {
     left: 2vw;
     position: relative;
     height: 150px;
-    width: auto;
+    width: 408px;
 }
 
 .title {
@@ -31,7 +31,7 @@ body {
 }
 
 .user {
-
+    
 }
 
 .chewy {
@@ -63,7 +63,7 @@ body {
 .Palpatine {
     padding-right: 0;
     padding-left: 0;
-    color: ;
+    color: #8d7e7e;
 }
 
 #Palpatine {
@@ -83,7 +83,7 @@ body {
 .Jinn {
     padding-right: 0;
     padding-left: 0;
-    color: ;
+    color: #361dee;
 }
 
 #Jinn {
