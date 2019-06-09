@@ -15,7 +15,7 @@ body {
     left: 2vw;
     position: relative;
     height: 150px;
-    /* width: 408px; */
+    width: 600px;
 }
 
 .title {
@@ -43,7 +43,7 @@ body {
     padding-left: 15px;
 }
 
-.chewy {
+.Chewy {
     padding-right: 0;
     padding-left: 0;
     color: #aa5522;
@@ -67,6 +67,7 @@ body {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    font-size: .925em;
 }
 
 .Palpatine {
@@ -87,6 +88,7 @@ body {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    font-size: .925em;
 }
 
 .Jinn {
@@ -107,19 +109,21 @@ body {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    font-size: .925em;
 }
 
-#chewy {
+#Chewy {
     position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
 }
 
-#chewy-health {
+#Chewy-health {
     text-align: center;
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    font-size: .925em;
 }
