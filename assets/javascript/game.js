@@ -20,12 +20,11 @@ function rndAtk(count){
 
     atk.forEach(rndAtk)
     function rndAtk(attack, index){
-        $('.Yoda').attr('data-atk', atk[0]);
-        $('.Jinn').attr('data-atk', atk[1]);
-        $('.Chewy').attr('data-atk', atk[2]);
-        $('.Palpatine').attr('data-atk', atk[3]);
+        $('.Yoda').attr('atk', atk[0]);
+        $('.Jinn').attr('atk', atk[1]);
+        $('.Chewy').attr('atk', atk[2]);
+        $('.Palpatine').attr('atk', atk[3]);
     }
-    console.log($('.Yoda'))
 }
 
 function getHP(count){
@@ -39,27 +38,45 @@ function getHP(count){
 
     health.forEach(rndHP)
     function rndHP(hp, index){
-        $('#Yoda-health').text('HP: ' + health[0]).attr('data-hp', health[0]);
-        $('#Jinn-health').text('HP: ' + health[1]).attr('data-hp', health[1]);
-        $('#Chewy-health').text('HP: ' + health[2]).attr('data-hp', health[2]);
-        $('#Palpatine-health').text('HP: ' + health[3]).attr('data-hp', health[3]);
+        $('#Yoda-health').text('HP: ' + health[0]).attr('hp', health[0]);
+        $('#Jinn-health').text('HP: ' + health[1]).attr('hp', health[1]);
+        $('#Chewy-health').text('HP: ' + health[2]).attr('hp', health[2]);
+        $('#Palpatine-health').text('HP: ' + health[3]).attr('hp', health[3]);
     }
-    console.log($('#Yoda-health'))
 }
+let chosen;
+// After user selects character the rest are moved to the enemies to defeat area and are not allowed to be clicked again
+function choose(){
+    let chosen = false;
+    $('.comp')
+    
+    if (!chosen){
+        $('.character').on('click', function(){
+        $('.character').not(this).appendTo($('.comp-char').addClass('my-2 d-inline-flex flex-row')).addClass('comp').removeClass('character');
+        chosen = true;
+        $(this).removeClass('character')
+        console.log(chosen)
 
-// After user selects character the rest are moved to the enemies to defeat area
-$(document).ready(function(){
-    $('.character').click(function(){
-        $('.character').appendTo($('#comp-char'));
-        console.log('hi');
-    });
-});
-// After user selects a character to attack it is moved to the attack arena area
-
-// Listener for attack button
-
-// Function for increasing attack each time attack button is pressed
-
-// Listener for when user character is defeated and restarts function for user to select a new character after a specified length of time
-
-// Listener for when each computer character is defeated and restarts function for user to select a new character after a specified length of time
+            if (chosen){
+                $('.comp').on('click', function(){
+                    chosen = undefined;
+                    $(this).appendTo($('.arena').addClass('my-2 d-inline-flex flex-row')).addClass('atk-arena');
+                    $('.comp').removeClass('comp');
+                    console.log(chosen)
+                });
+            }; 
+            console.log(chosen)
+        })
+    }
+}
+    // After user selects a character to attack it is moved to the attack arena area
+    // function compAtk(){
+        choose();
+    // }
+    // Listener for attack button
+    
+    // Function for increasing attack each time attack button is pressed
+    
+    // Listener for when user character is defeated and restarts function for user to select a new character after a specified length of time
+    
+    // Listener for when each computer character is defeated and restarts function for user to select a new character after a specified length of time
