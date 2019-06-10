@@ -44,12 +44,10 @@ function getHP(count){
         $('#Palpatine-health').text('HP: ' + health[3]).attr('hp', health[3]);
     }
 }
-let chosen;
+
 // After user selects character the rest are moved to the enemies to defeat area and are not allowed to be clicked again
-function choose(){
+function choose(){    
     let chosen = false;
-    $('.comp')
-    
     if (!chosen){
         $('.character').on('click', function(){
         $('.character').not(this).appendTo($('.comp-char').addClass('my-2 d-inline-flex flex-row')).addClass('comp').removeClass('character');
@@ -59,7 +57,7 @@ function choose(){
 
             if (chosen){
                 $('.comp').on('click', function(){
-                    chosen = undefined;
+                    $('.comp').not(this).removeClass('comp');
                     $(this).appendTo($('.arena').addClass('my-2 d-inline-flex flex-row')).addClass('atk-arena');
                     $('.comp').removeClass('comp');
                     console.log(chosen)
