@@ -30,10 +30,6 @@ body {
     text-align: center;
 }
 
-.enemy {
-    /* margin-top: 30vh; */
-}
-
 .comp-char {
     margin-top: 13vh;
 }
@@ -46,7 +42,7 @@ body {
 .Chewy {
     padding-right: 0;
     padding-left: 0;
-    color: #aa5522;
+    color: #4b1f03;
 }
 
 .Yoda {
@@ -94,7 +90,7 @@ body {
 .Jinn {
     padding-right: 0;
     padding-left: 0;
-    color: #361dee;
+    color: #000000;
 }
 
 #Jinn {

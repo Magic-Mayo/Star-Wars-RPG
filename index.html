@@ -15,25 +15,25 @@
         <div class="d-inline-flex flex-row chars mt-4">
             
             <div class="bg-light border border-danger py-4 character col Palpatine">
-                <span>Palpatine</span>
+                <span id="Palpatine" class="attacked">Palpatine</span>
                 <img src="assets/images/palpatine.jpg" alt="Palpatine">
                 <span id="Palpatine-health"></span>
             </div>
 
             <div class="bg-light border border-success py-4 character col Jinn">
-                <span>Jinn</span>
+                <span id="Jinn" class="attacked">Jinn</span>
                 <img src="assets/images/quigonjinn.jpg" alt="Qui-Gon Jinn">
                 <span id="Jinn-health"></span>
             </div>
 
             <div class="bg-light border border-warning py-4 col Yoda character">
-                <span>Yoda</span>
+                <span id="Yoda" class="attacked">Yoda</span>
                 <img src="assets/images/yoda.jpg" alt="Yoda">
                 <span id="Yoda-health"></span>
             </div>
 
             <div class="bg-light border border-primary py-4 Chewy col character">
-                    <span>Chewy</span>
+                    <span id="Chewy" class="attacked">Chewy</span>
                     <img src="assets/images/chewy.jpg" alt="Chewy">
                     <span id="Chewy-health"></span>
             </div>
@@ -45,7 +45,7 @@
 
         </div>
 
-        <div class="row mt-2 user">
+        <div class="row mt-2">
             <h4>Your Character</h4>
         </div>
 
@@ -70,8 +70,10 @@
         </div>
 
         <div class="row">
-            <div class="arena"></div>
+            <div class="arena" id="arena"></div>
         </div>
+
+        <div class="dialog"></div>
 
     </main>
 
