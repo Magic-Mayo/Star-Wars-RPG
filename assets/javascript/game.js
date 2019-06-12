@@ -1,4 +1,5 @@
 window.onload = function(){
+    // disableAtk();
     getHP(4);
     rndAtk(4);
     rndCntr(4);
@@ -12,8 +13,6 @@ let atk = [];
 let health = [];
 let atkCounter = 0;
 let compHP = 0;
-let compHealth;
-let userHealth;
 
 // Assign random attack to each character
 function rndAtk(count){
@@ -108,67 +107,79 @@ function chooseDefender(){
     });
 }; 
 
+// Method for increasing attack each time attack button is pressed
+function atkBtn(){
+atkBtnCount++
+atkCounter += userAttack;
+(atkBtnCount < 2) ? firstAtk() : secondAtk();
+}
+
 choose();
 
+const cntrAttack = ($('.atk-arena').attr('counter-attack'));
+let compHealth = ($('.atk-arena').attr('hp'));
+let userAttack = ($('.user').attr('attack'));
+let userHealth = ($('.user').attr('hp'));
+let atkBtnCount = 0;
+function firstAtk() {
+    compHealth -= userAttack;
+    userHealth -= cntrAttack;
+    $('.dialog').html('<p>You attacked ' + $('.atk-arena span:first').text() + ' for ' + userAttack + ' damage!</p>').addClass('ml-3');
+    $('.dialog').append('<p>' + $('.atk-arena span:first').text() + ' counter attacked for ' + cntrAttack + ' damage!</p>');        
+    $('atk-arena').attr('hp', compHealth);
+    $('.atk-arena span:last').html('HP: ' + compHealth);
+    $('.user').attr('hp', userHealth);
+    $('.user').attr('attack', userAttack);
+    $('.user span:last').html('HP: ' + userHealth);
+    console.log(userHealth);
+    console.log(compHealth);    
+}
+
+function secondAtk() {
+    compHealth -= atkCounter;
+    userHealth -= cntrAttack;
+    $('.dialog').html('<p>You attacked ' + $('.atk-arena span:first').text() + ' for ' + atkCounter + ' damage!</p>').addClass('ml-3');
+    $('.dialog').append('<p>' + $('.atk-arena span:first').text() + ' counter attacked for ' + cntrAttack + ' damage!</p>');
+    $('.atk-arena span:last').html('HP: ' + compHealth)
+    $('.user').attr('attack', userAttack);
+    $('atk-arena').attr('hp', compHealth);
+    $('.user').attr('hp', userHealth);
+    $('.user span:last').html('HP: ' + userHealth);
+
+    if (userHealth <= 0){
+        disableAtk();
+        $('.dialog').html('<p>You are dead!! Click restart to try again!</p>').addClass('ml-3');
+        $('.dialog').append('<button>Restart</button>').addClass('button btn-success').attr('type', 'button');
+    }
+}
+
 function attackStart(){
-    const cntrAttack = ($('.atk-arena').attr('counter-attack'));
-    let compHealth = ($('.atk-arena').attr('hp'));
-    let userAttack = ($('.user').attr('attack'));
-    let userHealth = ($('.user').attr('hp'));
-    let atkBtnCount = 0;
     $('.atk-arena').removeClass('user');
     
     // Listener for attack button
     $('#attack').on('click', function(){
-        atkBtnCount++
         console.log(atkBtnCount)
         userAttack = parseInt(userAttack);
         userHealth = parseInt(userHealth);
         compHealth = parseInt(compHealth);
-
-        // Method for increasing attack each time attack button is pressed
-        atkCounter += userAttack;
-        (atkBtnCount < 2) ? firstAtk() : secondAtk();
-        
-        if (compHealth <= 0){
-            console.log('hi')
-            $('.bg-danger').detach();
-        }
+        atkBtn();                
     })
 
-            function firstAtk() {
-                compHealth -= userAttack;
-                userHealth -= cntrAttack;
-                $('.dialog').html('<p>You attacked ' + $('.atk-arena span:first').text() + ' for ' + userAttack + ' damage!</p>').addClass('ml-3');
-                $('.dialog').append('<p>' + $('.atk-arena span:first').text() + ' counter attacked for ' + cntrAttack + ' damage!</p>');        
-                $('atk-arena').attr('hp', compHealth);
-                $('.atk-arena span:last').html('HP: ' + compHealth);
-                $('.user').attr('hp', userHealth);
-                $('.user').attr('attack', userAttack);
-                $('.user span:last').html('HP: ' + userHealth);
-                console.log(userHealth);
-                console.log(compHealth);    
-            }
-            
-            function secondAtk() {
-                $('.dialog').html('<p>You attacked ' + $('.atk-arena span:first').text() + ' for ' + atkCounter + ' damage!</p>').addClass('ml-3');
-                $('.dialog').append('<p>' + $('.atk-arena span:first').text() + ' counter attacked for ' + cntrAttack + ' damage!</p>');
-                $('.atk-arena span:last').html('HP: ' + compHealth)
-                $('.user').attr('attack', userAttack);
-                $('atk-arena').attr('hp', compHealth);
-                $('.user').attr('hp', userHealth);
-                $('.user span:last').html('HP: ' + userHealth);
-                compHealth -= atkCounter;
-                userHealth -= cntrAttack;
-
-                if (userHealth <= 0){
-                    $('.dialog').html('<p>You are dead!! Click restart to try again!</p>').addClass('ml-3');
-                    $('.dialog').append('<button>Restart</button>').addClass('button btn-success').attr('type', 'button');
-                }
-            }
 
             console.log(userHealth);
             console.log(compHealth);
+}
+
+function disableAtk(){
+    $('#attack').on('click', function() {
+        $(this).prop("disabled", true);
+    });
+}
+
+function enableAtk(){
+    $('#attack').on('click', function() {
+        $(this).prop("disabled", true);
+    });
 }
     
 // Listener for when each computer character is defeated and restarts function for user to select a new character after a specified length of time
