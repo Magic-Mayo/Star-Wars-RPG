@@ -129,6 +129,7 @@ function attackStart(){
         // Method for increasing attack each time attack button is pressed
         atkCounter += userAttack;
         (atkBtnCount < 2) ? firstAtk() : secondAtk();
+        
         if (compHealth <= 0){
             console.log('hi')
             $('.bg-danger').detach();
@@ -145,11 +146,11 @@ function attackStart(){
                 $('.user').attr('hp', userHealth);
                 $('.user').attr('attack', userAttack);
                 $('.user span:last').html('HP: ' + userHealth);
+                console.log(userHealth);
+                console.log(compHealth);    
             }
             
             function secondAtk() {
-                console.log(userHealth);
-                console.log(compHealth);    
                 $('.dialog').html('<p>You attacked ' + $('.atk-arena span:first').text() + ' for ' + atkCounter + ' damage!</p>').addClass('ml-3');
                 $('.dialog').append('<p>' + $('.atk-arena span:first').text() + ' counter attacked for ' + cntrAttack + ' damage!</p>');
                 $('.atk-arena span:last').html('HP: ' + compHealth)
@@ -159,11 +160,16 @@ function attackStart(){
                 $('.user span:last').html('HP: ' + userHealth);
                 compHealth -= atkCounter;
                 userHealth -= cntrAttack;
+
+                if (userHealth <= 0){
+                    $('.dialog').html('<p>You are dead!! Click restart to try again!</p>').addClass('ml-3');
+                    $('.dialog').append('<button>Restart</button>').addClass('button btn-success').attr('type', 'button');
+                }
             }
+
             console.log(userHealth);
             console.log(compHealth);
-         
-    }
+}
     
 // Listener for when each computer character is defeated and restarts function for user to select a new character after a specified length of time
 
