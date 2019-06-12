@@ -1,8 +1,8 @@
 window.onload = function(){
-    // disableAtk();
     getHP(4);
     rndAtk(4);
-    rndCntr(4);
+    rndCntrAtk(4);
+    disableAtk();
 }
 
 let attack = [4, 12, 8, 10];
@@ -13,10 +13,14 @@ let atk = [];
 let health = [];
 let atkCounter = 0;
 let compHP = 0;
-
+let compHealth;
+let userHealth;
+const gameOver = [$('.restart')];
+// gameOver.push($('.restart'));
+console.log(gameOver)
 // Assign random attack to each character
 function rndAtk(count){
-    const tmp = attack.slice(hp);
+    const tmp = attack.slice(attack);
     
     for (let i = 0; i < count; i++) {
         const index = Math.floor(Math.random() * tmp.length);
@@ -34,8 +38,8 @@ function rndAtk(count){
 }
 
 // Assign random counter attack to each character
-function rndCntr(count){
-    const tmp = counterAtk.slice(hp);
+function rndCntrAtk(count){
+    const tmp = counterAtk.slice(counterAtk);
     
     for (let i = 0; i < count; i++) {
         const index = Math.floor(Math.random() * tmp.length);
@@ -78,8 +82,8 @@ function getHP(count){
 
 // After user selects character the rest are moved to the enemies to defeat area and are not allowed to be clicked again
 function choose(){    
-        $('.character').on('click', function(){
-        $('.character').not(this).appendTo($('.comp-char').addClass('my-2 d-inline-flex flex-row')).addClass('comp bg-dark').removeClass('character bg-light');
+    $('.character').on('click', function(){
+        $('.character').not(this).appendTo($('.comp-char').addClass('my-2 d-inline-flex flex-row')).addClass('comp bg-dark').removeClass('bg-light');
         $(this).removeClass('character').addClass('user');
         chooseDefender();
     })
@@ -87,101 +91,80 @@ function choose(){
 
 // After user selects a character to attack it is moved to the attack arena
 function chooseDefender(){
-    let chosen = false;
-    let picked = false;
-    
     $('.comp').on('click', function(){
         $('.comp').not(this).removeClass('comp');
         $(this).appendTo($('.arena').addClass('my-2 d-inline-flex flex-row')).addClass('atk-arena bg-danger');
-        $('.bg-dark').removeClass('comp');
-        chosen = true;
-        
-        if (chosen){
-            $('.atk-arena').removeClass('bg-dark')
-            picked = true;
-            if (picked){
-                attackStart();
-                console.log('hi')
-            }
-        }                   
+        $('.atk-arena').removeClass('bg-dark comp')
+        attackStart();
     });
 }; 
 
-// Method for increasing attack each time attack button is pressed
-function atkBtn(){
-atkBtnCount++
-atkCounter += userAttack;
-(atkBtnCount < 2) ? firstAtk() : secondAtk();
-}
-
 choose();
-
-const cntrAttack = ($('.atk-arena').attr('counter-attack'));
-let compHealth = ($('.atk-arena').attr('hp'));
-let userAttack = ($('.user').attr('attack'));
-let userHealth = ($('.user').attr('hp'));
 let atkBtnCount = 0;
-function firstAtk() {
-    compHealth -= userAttack;
-    userHealth -= cntrAttack;
-    $('.dialog').html('<p>You attacked ' + $('.atk-arena span:first').text() + ' for ' + userAttack + ' damage!</p>').addClass('ml-3');
-    $('.dialog').append('<p>' + $('.atk-arena span:first').text() + ' counter attacked for ' + cntrAttack + ' damage!</p>');        
-    $('atk-arena').attr('hp', compHealth);
-    $('.atk-arena span:last').html('HP: ' + compHealth);
-    $('.user').attr('hp', userHealth);
-    $('.user').attr('attack', userAttack);
-    $('.user span:last').html('HP: ' + userHealth);
-    console.log(userHealth);
-    console.log(compHealth);    
-}
-
-function secondAtk() {
-    compHealth -= atkCounter;
-    userHealth -= cntrAttack;
-    $('.dialog').html('<p>You attacked ' + $('.atk-arena span:first').text() + ' for ' + atkCounter + ' damage!</p>').addClass('ml-3');
-    $('.dialog').append('<p>' + $('.atk-arena span:first').text() + ' counter attacked for ' + cntrAttack + ' damage!</p>');
-    $('.atk-arena span:last').html('HP: ' + compHealth)
-    $('.user').attr('attack', userAttack);
-    $('atk-arena').attr('hp', compHealth);
-    $('.user').attr('hp', userHealth);
-    $('.user span:last').html('HP: ' + userHealth);
-
-    if (userHealth <= 0){
-        disableAtk();
-        $('.dialog').html('<p>You are dead!! Click restart to try again!</p>').addClass('ml-3');
-        $('.dialog').append('<button>Restart</button>').addClass('button btn-success').attr('type', 'button');
-    }
-}
-
 function attackStart(){
+    enableAtk();
+    const cntrAttack = ($('.atk-arena').attr('counter-attack'));
+    let compHealth = ($('.atk-arena').attr('hp'));
+    let userAttack = ($('.user').attr('attack'));
+    let userHealth = ($('.user').attr('hp'));
     $('.atk-arena').removeClass('user');
     
     // Listener for attack button
     $('#attack').on('click', function(){
+        atkBtnCount++
         console.log(atkBtnCount)
         userAttack = parseInt(userAttack);
         userHealth = parseInt(userHealth);
         compHealth = parseInt(compHealth);
-        atkBtn();                
+
+        // Method for increasing attack each time attack button is pressed
+        atkCounter += userAttack;
+        console.log(compHealth)
+        compHealth -= atkCounter;
+        
+        // Conditional to determine if computer character has been defeated and will not counterattack if it has
+        if (compHealth > 0){
+            userHealth -= cntrAttack;
+        }
+
+        $('.dialog').html('<p>You attacked ' + $('.atk-arena span:first').text() + ' for ' + atkCounter + ' damage!</p>').addClass('ml-3');
+        $('.dialog').append('<p>' + $('.atk-arena span:first').text() + ' counter attacked for ' + cntrAttack + ' damage!</p>');
+        $('.atk-arena span:last').html('HP: ' + compHealth)
+        $('.user').attr('attack', userAttack);
+        $('atk-arena').attr('hp', compHealth);
+        $('.user').attr('hp', userHealth);
+        $('.user span:last').html('HP: ' + userHealth);
+        
+        if (compHealth <= 0){
+            compHealth = 0;
+            // defeated.push($('.atk-arena'), $('.user'))
+            $('.atk-arena').remove();
+            $('.atk-arena').removeClass('atk-arena').removeAttr('counter-attack');
+            disableAtk();
+            chooseDefender();
+            console.log(compHealth)
+        }
+        
+        if (userHealth <= 0){
+            $('.dialog').html('<p class="ml-3">You are dead!! Click Restart to try again!</p>');
+            $('.dialog').append('<button class="btn btn-success ml-3" type="button" id="restart">Restart</button>');
+            $('#restart').on('click', function(){
+                console.log(gameOver)
+                $('.restart').html(gameOver);
+            })
+        }
+        console.log(gameOver)
     })
-
-
-            console.log(userHealth);
-            console.log(compHealth);
 }
 
 function disableAtk(){
-    $('#attack').on('click', function() {
-        $(this).prop("disabled", true);
-    });
-}
-
-function enableAtk(){
-    $('#attack').on('click', function() {
-        $(this).prop("disabled", true);
-    });
+    $('#attack').prop('disabled', true);
 }
     
+function enableAtk(){
+    $('#attack').prop('disabled', false);
+}
+
 // Listener for when each computer character is defeated and restarts function for user to select a new character after a specified length of time
 
 // Listener for when user character is defeated and gives user a restart button to restart the game
