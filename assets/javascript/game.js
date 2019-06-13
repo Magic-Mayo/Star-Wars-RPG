@@ -18,7 +18,7 @@ let compHealth;
 let userHealth;
 let atkBtnCount = 0;
 let vanquishCount = 0;
-
+const palpAudio = new Audio('assets/feeble.mp3');
 // Assign random attack to each character
 function rndAtk(count){
     const tmp = attack.slice(attack);
@@ -143,6 +143,15 @@ $('#attack').on('click', function(){
         $('.dialog').append('<button class="btn btn-success ml-3" type="button" id="restart">Restart</button>')
         $('.user span:last').html('HP: 0');
         disableAtk();
+
+        if ($('.atk-arena').is('#Palpatine')){
+            palpAudio.play();
+        }
+        
+        // else if ($('.atk-arena').is('#Yoda')){
+
+        // }
+
         $('#restart').on('click', function(){
             restart();
         })
