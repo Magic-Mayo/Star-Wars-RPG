@@ -94,7 +94,7 @@ function choose(){
 // After user selects a character to attack it is moved to the attack arena
 function chooseDefender(){
     $('.comp').on('click', function(){
-        $('.comp').not(this).removeClass('comp');
+        $('.comp').not(this).unbind('click');
         $(this).appendTo($('.arena').addClass('my-2 d-inline-flex flex-row')).addClass('atk-arena bg-danger');
         $('.atk-arena').removeClass('bg-dark comp user');
         enableAtk();
@@ -121,6 +121,7 @@ $('#attack').on('click', function(){
     // Conditional for when a computer character is defeated
     if (compHealth <= 0){
         vanquishCount++;
+        chooseDefender();
         disableAtk();
         compDefeat();
     }
