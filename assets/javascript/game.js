@@ -82,7 +82,8 @@ function getHP(count){
 }
 
 // After user selects character the rest are moved to the enemies to defeat area and are not allowed to be clicked again
-function choose(){    
+function choose(){
+    console.log('hi')
     $('.character').on('click', function(){
         $('.character').not(this).appendTo($('.comp-char').addClass('my-2 d-inline-flex flex-row')).addClass('comp bg-dark restart').removeClass('bg-light character');
         $(this).removeClass('character').addClass('user restart');
@@ -117,13 +118,14 @@ $('#attack').on('click', function(){
     atkCounter += userAttack;
     compHealth -= atkCounter;
     
+    // Conditional for when a computer character is defeated
     if (compHealth <= 0){
         vanquishCount++;
-        console.log(vanquishCount)
         disableAtk();
         compDefeat();
     }
     
+    // Conditonal for attacking.  If computer health is above 0 attacks will continue and be listed for user to see
     if (compHealth > 0){
         userHealth -= cntrAttack;
         $('.dialog').html('<p>You attacked ' + $('.atk-arena span:first').text() + ' for ' + atkCounter + ' damage!</p>').addClass('ml-3');
@@ -134,7 +136,8 @@ $('#attack').on('click', function(){
         $('.user').attr('hp', userHealth);
         $('.user span:last').html('HP: ' + userHealth);
     }
-
+    
+    // Conditional for when user character is defeated and gives user a restart button to restart the game
     if (userHealth <= 0){
         $('.dialog').html('<p class="ml-3">Resistance is Futile!! Click Restart to try again!</p>');
         $('.dialog').append('<button class="btn btn-success ml-3" type="button" id="restart">Restart</button>')
@@ -144,7 +147,8 @@ $('#attack').on('click', function(){
             restart();
         })
     }
-
+    
+    // Conditional for when all computer characters are defeated and gives a restart button for user to select a new character
     if (vanquishCount > 2){
         $('.dialog').html('<p class="ml-3">You have vanquished your enemies!! Click Restart to rain destruction again!</p>');
         $('.dialog').append('<button class="btn btn-success ml-3" type="button" id="restart">Restart</button>')
@@ -155,12 +159,13 @@ $('#attack').on('click', function(){
     }
 })
 
-console.log(vanquishCount)
+// Function for when a computer character is defeated.  Will move character into a 'holding area'
 function compDefeat(){
     // Conditional to determine if computer character has been defeated and will not counterattack if it has
     $('.atk-arena').removeClass('atk-arena').addClass('restart').appendTo('.defeated');
     }
 
+// Function for restarting the game
 function restart(){
     $('.restart').appendTo($('.defeated')).removeClass('user restart bg-dark bg-danger atk-arena').addClass('go bg-light');
     getHP(4);
@@ -182,9 +187,3 @@ function disableAtk(){
 function enableAtk(){
     $('#attack').prop('disabled', false);
 }
-
-// Listener for when each computer character is defeated and restarts function for user to select a new character after a specified length of time
-
-// Listener for when user character is defeated and gives user a restart button to restart the game
-    
-// Listener for when all computer charactera are defeated and gives user a restart button to restart the game
