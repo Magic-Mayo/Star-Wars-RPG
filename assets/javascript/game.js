@@ -85,19 +85,21 @@ function getHP(count){
 function choose(){
     console.log('hi')
     $('.character').on('click', function(){
-        $('.character').not(this).appendTo($('.comp-char').addClass('my-2 d-inline-flex flex-row')).addClass('comp bg-dark restart').removeClass('bg-light character');
         $(this).removeClass('character').addClass('user restart');
+        $('.character').not(this).appendTo($('.comp-char').addClass('my-2 d-inline-flex flex-row')).addClass('comp bg-dark restart').removeClass('bg-light character');
         chooseDefender();
     })
 }
 
 // After user selects a character to attack it is moved to the attack arena
 function chooseDefender(){
+    $('.character').off('click')
     $('.comp').on('click', function(){
-        $('.comp').not(this).unbind('click');
+        $('.comp').not(this);
         $(this).appendTo($('.arena').addClass('my-2 d-inline-flex flex-row')).addClass('atk-arena bg-danger');
         $('.atk-arena').removeClass('bg-dark comp user');
         enableAtk();
+        $('.comp').off('click');
     });
 }; 
 
@@ -179,6 +181,9 @@ function restart(){
     vanquishCount = 0;
     atkBtnCount = 0;
     atkCounter = 0;
+    cntrAtk = [];
+    atk = [];
+    health = [];
 }
 
 function disableAtk(){
