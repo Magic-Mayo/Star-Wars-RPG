@@ -93,16 +93,13 @@ function choose(){
 
 // After user selects a character to attack it is moved to the attack arena
 function chooseDefender(){
-    $('.character').off('click')
     $('.comp').on('click', function(){
-        $('.comp').not(this);
         $(this).appendTo($('.arena').addClass('my-2 d-inline-flex flex-row')).addClass('atk-arena bg-danger');
+        $('.comp').off('click')
         $('.atk-arena').removeClass('bg-dark comp user');
         enableAtk();
-        $('.comp').off('click');
     });
 }; 
-
 
 // Listener for attack button
 $('#attack').on('click', function(){
@@ -175,8 +172,9 @@ function restart(){
     rndAtk(4);
     rndCntrAtk(4);
     disableAtk();
-    choose();
     $('.start').html($('.go').removeClass('go').addClass('character'));
+    $('.character').on('click');
+    choose();
     $('.dialog').empty();
     vanquishCount = 0;
     atkBtnCount = 0;
