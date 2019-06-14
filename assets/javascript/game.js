@@ -200,3 +200,7 @@ function disableAtk(){
 function enableAtk(){
     $('#attack').prop('disabled', false);
 }
+
+// Audio files set up for getting defeated and for defeating characters and for winning
+// Instruction for each step
+// Animations on defeat and victory
