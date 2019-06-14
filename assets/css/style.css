@@ -2,7 +2,7 @@ body {
     /* Background image from rich35211 https://www.deviantart.com/rich35211/art/Star-Wars-Coruscant-2015-Matte-373876097 */
     background-image: url(../images/background1.jpg);
     background-size: cover;
-    overflow: scroll;
+    background-attachment: fixed;
     color: #cccccc;
 }
 
