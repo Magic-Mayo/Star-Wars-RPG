@@ -18,7 +18,17 @@ let compHealth;
 let userHealth;
 let atkBtnCount = 0;
 let vanquishCount = 0;
-const palpAudio = new Audio('assets/feeble.mp3');
+let lossCounter = 0;
+let winCounter = 0;
+const palpAudio = [new Audio('assets/feeble.mp3'), new Audio('assets/destiny.mp3'), new Audio('assets/servant.mp3'),
+new Audio('assets/forseen.mp3'), new Audio('assets/end.mp3'), new Audio('assets/jedi.mp3')]
+const yodaAudio = [new Audio('assets/old.mp3'), new Audio('assets/try.mp3'), new Audio('assets/learn.mp3')]
+const jinnAudio = new Audio('assets/')
+const audio = $('.defeated').append('<audio>').attr('src', yodaAudio[0]).addClass('audio')
+setTimeout($('.audio').onloadedmetadata = function() {
+    console.log(audio.duration);
+}, 100);
+
 // Assign random attack to each character
 function rndAtk(count){
     const tmp = attack.slice(attack);
@@ -148,11 +158,15 @@ $('#attack').on('click', function(){
             palpAudio.play();
         }
         
-        // else if ($('.atk-arena').is('#Yoda')){
-
-        // }
+        else if ($('.atk-arena').is('#Yoda')){
+            // yodaAudio.onloadedmetadata = function() {
+            //     console.log(audio.duration);
+            // };
+            yodaAudio.play();
+        }
 
         $('#restart').on('click', function(){
+            lossCounter++;
             restart();
         })
     }
@@ -163,6 +177,7 @@ $('#attack').on('click', function(){
         $('.dialog').append('<button class="btn btn-success ml-3" type="button" id="restart">Restart</button>')
         disableAtk();
         $('#restart').on('click', function(){
+            winCounter++;
             restart();
         })
     }
