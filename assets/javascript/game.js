@@ -20,14 +20,10 @@ let atkBtnCount = 0;
 let vanquishCount = 0;
 let lossCounter = 0;
 let winCounter = 0;
-const palpAudio = [new Audio('assets/feeble.mp3'), new Audio('assets/destiny.mp3'), new Audio('assets/servant.mp3'),
-new Audio('assets/forseen.mp3'), new Audio('assets/end.mp3'), new Audio('assets/jedi.mp3')]
-const yodaAudio = [new Audio('assets/old.mp3'), new Audio('assets/try.mp3'), new Audio('assets/learn.mp3')]
-const jinnAudio = new Audio('assets/')
-const audio = $('.defeated').append('<audio>').attr('src', yodaAudio[0]).addClass('audio')
-setTimeout($('.audio').onloadedmetadata = function() {
-    console.log(audio.duration);
-}, 100);
+const palpAudio = new Audio('assets/feeble.mp3');
+const yodaAudio = new Audio('assets/learn.mp3');
+const jinnAudio = new Audio('assets/learnjinn.mp3');
+const chewyAudio = new Audio('assets/chewbacca.mp3');
 
 // Assign random attack to each character
 function rndAtk(count){
@@ -93,7 +89,6 @@ function getHP(count){
 
 // After user selects character the rest are moved to the enemies to defeat area and are not allowed to be clicked again
 function choose(){
-    console.log('hi')
     $('.character').on('click', function(){
         $(this).removeClass('character').addClass('user restart');
         $('.character').not(this).appendTo($('.comp-char').addClass('my-2 d-inline-flex flex-row')).addClass('comp bg-dark restart').removeClass('bg-light character');
@@ -113,6 +108,7 @@ function chooseDefender(){
 
 // Listener for attack button
 $('#attack').on('click', function(){
+
     const cntrAttack = ($('.atk-arena').attr('counter-attack'));
     let compHealth = ($('.atk-arena').attr('hp'));
     let userAttack = ($('.user').attr('attack'));
@@ -138,8 +134,8 @@ $('#attack').on('click', function(){
     // Conditonal for attacking.  If computer health is above 0 attacks will continue and be listed for user to see
     if (compHealth > 0){
         userHealth -= cntrAttack;
-        $('.dialog').html('<p>You attacked ' + $('.atk-arena span:first').text() + ' for ' + atkCounter + ' damage!</p>').addClass('ml-3');
-        $('.dialog').append('<p>' + $('.atk-arena span:first').text() + ' counter attacked for ' + cntrAttack + ' damage!</p>');
+        $('.dialog').html('<p class="ml-3">You attacked ' + $('.atk-arena span:first').text() + ' for ' + atkCounter + ' damage!</p>').addClass('ml-3');
+        $('.dialog').append('<p class="ml-3">' + $('.atk-arena span:first').text() + ' counter attacked for ' + cntrAttack + ' damage!</p>');
         $('.atk-arena span:last').html('HP: ' + compHealth)
         $('.user').attr('attack', userAttack);
         $('.atk-arena').attr('hp', compHealth);
@@ -149,26 +145,65 @@ $('#attack').on('click', function(){
     
     // Conditional for when user character is defeated and gives user a restart button to restart the game
     if (userHealth <= 0){
-        $('.dialog').html('<p class="ml-3">Resistance is Futile!! Click Restart to try again!</p>');
-        $('.dialog').append('<button class="btn btn-success ml-3" type="button" id="restart">Restart</button>')
-        $('.user span:last').html('HP: 0');
         disableAtk();
 
-        if ($('.atk-arena').is('#Palpatine')){
+        if ($('.atk-arena').hasClass('Palpatine')){
             palpAudio.play();
+            $('.user span:last').html('HP: 0');
+            // Function for restart button to appear after audio plays
+            setTimeout(function (){
+                $('.dialog').html('<p class="ml-3">Resistance is Futile!! Click Restart to try again!</p>');
+                $('.dialog').append('<button class="btn btn-success ml-3" type="button" id="restart">Restart</button>')
+                $('#restart').on('click', function(){
+                    lossCounter++;
+                    restart();
+                });
+            }, 5200);
         }
         
-        else if ($('.atk-arena').is('#Yoda')){
-            // yodaAudio.onloadedmetadata = function() {
-            //     console.log(audio.duration);
-            // };
+        else if ($('.atk-arena').hasClass('Yoda')){
             yodaAudio.play();
+            $('.user span:last').html('HP: 0');
+            // Function for restart button to appear after audio plays
+            setTimeout(function (){
+                $('.dialog').html('<p class="ml-3">Resistance is Futile!! Click Restart to try again!</p>');
+                $('.dialog').append('<button class="btn btn-success ml-3" type="button" id="restart">Restart</button>')
+                $('#restart').on('click', function(){
+                    lossCounter++;
+                    restart();
+                });
+            }, 4200);
         }
 
-        $('#restart').on('click', function(){
-            lossCounter++;
-            restart();
-        })
+        else if ($('.atk-arena').hasClass('Chewy')){
+            chewyAudio.play();
+            $('.user span:last').html('HP: 0');
+            // Function for restart button to appear after audio plays
+            setTimeout(function (){
+                $('.dialog').html('<p class="ml-3">Resistance is Futile!! Click Restart to try again!</p>');
+                $('.dialog').append('<button class="btn btn-success ml-3" type="button" id="restart">Restart</button>')
+                $('#restart').on('click', function(){
+                    lossCounter++;
+                    restart();
+                });
+            }, 1200);
+        }
+
+        else if ($('.atk-arena').hasClass('Jinn')){
+            jinnAudio.play();
+            $('.user span:last').html('HP: 0');
+            // Function for restart button to appear after audio plays
+            setTimeout(function (){
+                $('.dialog').html('<p class="ml-3">Resistance is Futile!! Click Restart to try again!</p>');
+                $('.dialog').append('<button class="btn btn-success ml-3" type="button" id="restart">Restart</button>')
+                $('#restart').on('click', function(){
+                    lossCounter++;
+                    restart();
+                });
+            }, 2000);
+        }
+
+
     }
     
     // Conditional for when all computer characters are defeated and gives a restart button for user to select a new character
@@ -188,6 +223,7 @@ function compDefeat(){
     // Conditional to determine if computer character has been defeated and will not counterattack if it has
     $('.atk-arena').removeClass('atk-arena').addClass('restart').appendTo('.defeated');
     }
+
 
 // Function for restarting the game
 function restart(){

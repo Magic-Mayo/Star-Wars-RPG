@@ -123,3 +123,12 @@ body {
     transform: translateX(-50%);
     font-size: .925em;
 }
+
+.btn {
+    padding: 0;
+}
+
+#restart {
+    font-size: 1.7em;
+    padding: 5px
+}
