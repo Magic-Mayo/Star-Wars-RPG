@@ -108,7 +108,8 @@ function chooseDefender(){
 
 // Listener for attack button
 $('#attack').on('click', function(){
-
+    const laser = [new Audio('assets/3\ clash\ 2.mp3'), new Audio('assets/5\ clash\ 2.mp3'),
+    new Audio('assets/clash\ clash\ twirl.mp3'), new Audio('laserhit4.mp3')];
     const cntrAttack = ($('.atk-arena').attr('counter-attack'));
     let compHealth = ($('.atk-arena').attr('hp'));
     let userAttack = ($('.user').attr('attack'));
@@ -117,9 +118,10 @@ $('#attack').on('click', function(){
     userHealth = parseInt(userHealth);
     compHealth = parseInt(compHealth);
     
+    
     // Method for increasing attack each time attack button is pressed
     atkBtnCount++
-
+    
     atkCounter += userAttack;
     compHealth -= atkCounter;
     
@@ -141,6 +143,12 @@ $('#attack').on('click', function(){
         $('.atk-arena').attr('hp', compHealth);
         $('.user').attr('hp', userHealth);
         $('.user span:last').html('HP: ' + userHealth);
+        
+        // Plays a sound on each attack click(still need to get this to work on every click.  Currently will give a DOM promise exception at times)
+        if (userHealth > 0){
+            const lsrSound = Math.floor(Math.random()*laser.length);
+            laser[lsrSound].play();
+        }
     }
     
     // Conditional for when user character is defeated and gives user a restart button to restart the game
@@ -148,7 +156,7 @@ $('#attack').on('click', function(){
         disableAtk();
 
         if ($('.atk-arena').hasClass('Palpatine')){
-            palpAudio.play();
+            setTimeout(palpAudio.play(), 2500);
             $('.user span:last').html('HP: 0');
             // Function for restart button to appear after audio plays
             setTimeout(function (){
@@ -162,7 +170,7 @@ $('#attack').on('click', function(){
         }
         
         else if ($('.atk-arena').hasClass('Yoda')){
-            yodaAudio.play();
+            setTimeout(yodaAudio.play(), 2500);
             $('.user span:last').html('HP: 0');
             // Function for restart button to appear after audio plays
             setTimeout(function (){
@@ -176,7 +184,7 @@ $('#attack').on('click', function(){
         }
 
         else if ($('.atk-arena').hasClass('Chewy')){
-            chewyAudio.play();
+            setTimeout(chewyAudio.play(), 2500);
             $('.user span:last').html('HP: 0');
             // Function for restart button to appear after audio plays
             setTimeout(function (){
@@ -190,7 +198,7 @@ $('#attack').on('click', function(){
         }
 
         else if ($('.atk-arena').hasClass('Jinn')){
-            jinnAudio.play();
+            setTimeout(jinnAudio.play(), 2500);
             $('.user span:last').html('HP: 0');
             // Function for restart button to appear after audio plays
             setTimeout(function (){
